@@ -15,6 +15,7 @@
             background-image: url('imgs/background.png'); /* Added background image */
             background-size: cover; /* Ensure the background covers the entire container */
             background-position: center; /* Center the background image */
+            overflow: hidden; /* Hide overflow content */
         }
 
         .title {
@@ -59,22 +60,43 @@
         }
 
         .leaderboard {
-            width: 240%;
+            width: 50%; /* Set width to 50% */
             height: 240px;
-            background-image: url('imgs/leaderboard1.png'); /* Add leaderboard image */
-            background-position: center;
-            background-size: contain;
-            background-repeat: no-repeat;
+            background-color: white; /* Set background color to white */
             position: absolute;
             bottom: 0;
-            left: 50.5%;
+            left: 50%;
             transform: translateX(-50%);
             cursor: pointer; /* Change cursor to pointer */
-            transition: bottom 0.4s ease-in-out; /* Smooth transition for bottom position */
+            transition: height 0.4s ease-in-out; /* Smooth transition for height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, sans-serif; /* Set font to Arial, sans-serif */
         }
 
-        .leaderboard.moved {
-            bottom: -200px; /* Move down by 200px */
+        .leaderboard.collapsed {
+            height: 50px; /* Collapse height to 50px */
+        }
+
+        .announcement-content {
+            display: none;
+            padding: 10px;
+            overflow-y: auto; /* Add vertical scrollbar */
+            max-height: 190px; /* Set max height for the content */
+        }
+
+        .leaderboard.expanded .announcement-content {
+            display: block;
+        }
+
+        .leaderboard.collapsed .announcement-title {
+            display: block;
+        }
+
+        .leaderboard.expanded .announcement-title {
+            display: none;
         }
 
         body {
@@ -89,7 +111,18 @@
     <div class="cat-img" id="p">0</div>
 </div>
 
-<div class="leaderboard"></div>
+<div class="leaderboard collapsed">
+    <div class="announcement-title">Announcement</div>
+    <div class="announcement-content">
+        <div class="announcement-title">Announcement</div>
+        Annoucement: <br><br>
+        🐱 Popcat 伺服器爆炸啦，貓貓都被嚇哭了!<br>
+        💥 喵嗚！太多人狂點了，伺服器撐不住啦！<br><br>
+        我們的伺服器目前正在喘息中，請稍等幾分鐘再試試～<br>
+        或者，你可以先跟你的貓聊聊天，等我們修好之後再來點爆！<br><br>
+        🔄 請試試重新整理（但別太兇，伺服器會怕 😿）
+    </div>
+</div>
 
 <script>
     const img = new Image();
@@ -114,9 +147,10 @@
     document.addEventListener('DOMContentLoaded', function () {
         const leaderboard = document.querySelector('.leaderboard');
 
-        // Move down on click
+        // Collapse vertically on click
         leaderboard.addEventListener('click', function () {
-            leaderboard.classList.toggle('moved');
+            leaderboard.classList.toggle('collapsed');
+            leaderboard.classList.toggle('expanded');
         });
     });
 </script>
