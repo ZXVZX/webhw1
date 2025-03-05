@@ -67,9 +67,14 @@
             background-repeat: no-repeat;
             position: absolute;
             bottom: 0;
-            left: 50.3%;
+            left: 50.5%;
             transform: translateX(-50%);
             cursor: pointer; /* Change cursor to pointer */
+            transition: bottom 0.4s ease-in-out; /* Smooth transition for bottom position */
+        }
+
+        .leaderboard.moved {
+            bottom: -200px; /* Move down by 200px */
         }
 
         body {
@@ -91,11 +96,13 @@
     const audio = new Audio('pops/pop1.mp3');
     let count = 0;
 
-    document.addEventListener('mousedown', function () {
-        count++;
-        document.querySelector('.cat-img').textContent = count;
-        document.querySelector('.cat-img').id = 'op';
-        new Audio('pops/pop1.mp3').play();
+    document.addEventListener('mousedown', function (event) {
+        if (!event.target.classList.contains('leaderboard')) {
+            count++;
+            document.querySelector('.cat-img').textContent = count;
+            document.querySelector('.cat-img').id = 'op';
+            new Audio('pops/pop1.mp3').play();
+        }
     });
 
     document.addEventListener('mouseup', function () {
@@ -103,6 +110,15 @@
     });
 
     document.querySelector('.cat-img').textContent = count;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const leaderboard = document.querySelector('.leaderboard');
+
+        // Move down on click
+        leaderboard.addEventListener('click', function () {
+            leaderboard.classList.toggle('moved');
+        });
+    });
 </script>
 </body>
 </html>
