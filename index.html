@@ -127,6 +127,21 @@
 </div>
 
 <script>
+    function preloadImages(imageUrls) {
+        const images = [];
+        for (let i = 0; i < imageUrls.length; i++) {
+            images[i] = new Image();
+            images[i].src = imageUrls[i];
+        }
+    }
+
+    // Usage
+    preloadImages([
+        'imgs/raindrops.jpg',
+        'imgs/image-Photoroom.png',
+        'imgs/cat-02.png'
+    ]);
+
     const img = new Image();
     const audio = new Audio('pops/pop1.mp3');
     let count = 0;
